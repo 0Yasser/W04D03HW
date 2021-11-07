@@ -1,4 +1,5 @@
 import React from 'react';
+import Counter from './Counter';
 
 
 class ToDo extends React.Component {
@@ -38,6 +39,7 @@ class ToDo extends React.Component {
             <li key={i}>
               {item.text}
               <button onClick={()=>this.remove(i)}>Delete</button>
+              <Counter></Counter>
             </li>
           ))}
         </ul>
@@ -56,3 +58,53 @@ class ToDo extends React.Component {
 }
 
 export default ToDo;
+
+/* 
+Equivelent ToDo but using function instead of class:
+
+import { useState } from "react";
+import React from "react";
+import Counter from "./Counter";
+
+const ToDo = (props) => {
+  const [myList, setList] = useState([]);
+  const [itemValue, setAddItemValue] = useState("");
+
+  function add() {
+    let myListClone = [...myList];
+    myListClone.push(itemValue);
+    setList(myListClone);
+  }
+
+  function remove(num) {
+    const newList = [...myList];
+    newList.splice(num, 1);
+    setList(newList);
+  }
+  return (
+    <div>
+      <h1>TO DO</h1>
+      <ul>
+        {myList.map((curr, i) => (
+          <li key={i}>
+            {curr}
+            <button onClick={() => remove(i)}>Delete</button>
+            <Counter></Counter>
+          </li>
+        ))}
+      </ul>
+      <ul>
+        <h4>What needs to be done</h4>
+        <input
+          type="text"
+          onChange={(e) => setAddItemValue(e.target.value)}
+        />
+        <button onClick={add}>Add</button>
+      </ul>
+    </div>
+  );
+};
+
+export default ToDo;
+
+*/
